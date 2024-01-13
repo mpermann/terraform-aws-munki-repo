@@ -38,10 +38,11 @@ Create a new empty directory wherever you want to store this. Inside that direct
 # change the following variables
 
 # prefix should be globally unique. Some characters seem to cause issues;
-# I'd recommend sticking with lower-case-letters and underscores
-# Something like org_yourorg_munki might be a good prefix.
+# I'd recommend sticking with lower-case-letters, numbers, dots (.), and hyphens (-)
+# the prefix will be concatenated with the bucket name to provide an AWS globally unique name
+# something like com.companyname might be a good prefix.
 variable "prefix" {
-  default = "you-better-change-me"
+  default = "com.companyname"
 }
 
 # you'd need to change this only if you have an existing bucket named
@@ -135,8 +136,7 @@ provider "aws" {
 }
 
 module "munki-repo" {
-  source          = "grahamgilbert/munki-repo/aws"
-  version         = "0.3.0"
+  source          = "github.com/grahamgilbert/terraform-aws-munki-repo"
   munki_s3_bucket = var.munki_s3_bucket
   username        = var.username
   password        = var.password
